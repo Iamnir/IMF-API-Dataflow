@@ -28,7 +28,7 @@ pip install requests
    ```bash
    python imf_dataflow_explorer.py
    ```
-3. The script will prompt outputs for dataflows, dimensions, and codelists.
+3. The script will prompt inputs for dataflows, dimensions, and codelists with key names.
 
 ## Script Breakdown
 ### Step 1: Fetch Available Dataflows
@@ -65,10 +65,10 @@ search_term = 'expense'  # Change to any keyword according to your requirement
 
 # File 2: IMF API Access usign CompactData for a Dataflow (Retrieve all the dimensions) 
 ## Features
-- Queries IMF's CompactData API for government finance statistics.
-- Retrieves data based on user-specified parameters.
+- Queries IMF's CompactData API for required dataflow {(Key - GFSE) for data series Government Finance Statistics}
+- Retrieves data based on user-specified parameters {Create your own dictionary for dataflow, dimension and codelists}.
 - Converts the response into a structured pandas DataFrame.
-- Supports batch processing of multiple countries, sectors, and classifications.
+- Supports batch processing of multiple dimensions with all codelists together.
 - Implements rate limiting to handle API request constraints.
 - Saves progress to avoid redundant API calls.
 
@@ -94,8 +94,8 @@ search_term = 'expense'  # Change to any keyword according to your requirement
 ## Script Breakdown
 ### Step 1: Define Query Parameters
 - Set the start and end years.
-- Use a dictionary (`data_dict`) containing country codes, sector codes, unit measures, and classification indicators.
-- Data dictionary will vary according to the dataflow. 
+- Use a dictionary (`data_dict`) containing country codes, sector codes, unit measures, and classification indicators. Do the same thing according to explorer script output for the required data series.
+- Data dictionary will vary according to the dataflow.
 - In order to construct the dataflow, please use the imf_dataflow_explorer.ipynb file.
 - Check the example we have to construct the data dictionary in this file. 
 ### Step 2: Fetch Data in Batches
@@ -109,7 +109,7 @@ search_term = 'expense'  # Change to any keyword according to your requirement
 - Keeps track of the last processed classification to resume efficiently.
 - Maintains a master tracking file logging saved datasets.
 
-## Example Output
+## Example Output for GFSE for country : India
 ```plaintext
   Country Code Country Name Sector Code Sector Name Unit Code Unit Name Classification Code Classification Name Year Attribute Value
 0          IN        India      S1311B    Central Govt    XDC   Local Currency  W0_S1_G21      Public Expenses  2000 OBS_VALUE  12345.67
@@ -117,7 +117,7 @@ search_term = 'expense'  # Change to any keyword according to your requirement
 ```
 
 ## Customization
-Modify `data_dict` to include desired countries, sectors, and indicators to extract different datasets.
+Modify `data_dict` to include desired structure of data series. Structure will be retrieved from the explorer file.
 
 ## Contributions
 Feel free to fork, improve, and submit pull requests!
